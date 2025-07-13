@@ -1,6 +1,5 @@
 package com.ba.qrc_scanner
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,7 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ba.qrc_scanner.base.BaseActivity
 import com.ba.qrc_scanner.databinding.ActivityMainBinding
-import com.ba.qrc_scanner.ui.NIDActivity
+import com.ba.qrc_scanner.model.TokenState
+import com.ba.qrc_scanner.utils.remote.observeResource
 import com.ba.qrc_scanner.viewmodel.MainViewModel
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -52,6 +52,28 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 )
             )
         }
+
+        binding?.approvedBtn?.setOnClickListener {
+            viewModel?.changeTokenState(TokenState("158","0"))
+        }
+
+        observeData()
+    }
+
+    private fun observeData() {
+        viewModel?.tokenStateResult?.observeResource(
+            owner = this,
+            onLoading = {
+                showLoading()
+            },
+            onSuccess = { tokenState ->
+                hideLoading()
+
+            },
+            onError = { error ->
+                hideLoading()
+            }
+        )
     }
 
     override fun onPermissionResult(permissions: Map<String, Boolean>) {
@@ -71,7 +93,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         if (result.contents == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
         } else {
-            var content:String = result.contents;
+            var content: String = result.contents;
             if (content.isEmpty()) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
                 return@registerForActivityResult
