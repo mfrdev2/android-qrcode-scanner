@@ -2,6 +2,7 @@ package com.ba.qrc_scanner.data.remote.repo
 
 import com.ba.qrc_scanner.data.remote.RetrofitClient
 import com.ba.qrc_scanner.data.remote.service.ApiService
+import com.ba.qrc_scanner.model.SuccessRes
 import com.ba.qrc_scanner.model.TokenState
 import com.ba.qrc_scanner.utils.remote.Resource
 import org.json.JSONException
@@ -18,7 +19,7 @@ class ApiRepo {
         kotlinx.coroutines.delay(2000)
     }
 
-    suspend fun changeTokenState(tokenState: TokenState): Resource<TokenState> {
+    suspend fun changeTokenState(tokenState: TokenState): Resource<SuccessRes> {
         return try {
             val response = apiService.changeTokenState(tokenState)
             Resource.success(response)

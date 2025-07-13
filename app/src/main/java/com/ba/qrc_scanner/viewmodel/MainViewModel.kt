@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ba.qrc_scanner.base.BaseViewModel
 import com.ba.qrc_scanner.data.remote.repo.ApiRepo
+import com.ba.qrc_scanner.model.SuccessRes
 import com.ba.qrc_scanner.model.TokenState
 import com.ba.qrc_scanner.utils.remote.Resource
 import kotlinx.coroutines.launch
@@ -13,8 +14,8 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application) : BaseViewModel(application) {
     val apiRep: ApiRepo by lazy { ApiRepo() }
 
-    private val _tokenState = MutableLiveData<Resource<TokenState>>()
-    val tokenStateResult: LiveData<Resource<TokenState>> = _tokenState
+    private val _tokenState = MutableLiveData<Resource<SuccessRes>>()
+    val tokenStateResult: LiveData<Resource<SuccessRes>> = _tokenState
 
 
     fun changeTokenState(review: TokenState) {
