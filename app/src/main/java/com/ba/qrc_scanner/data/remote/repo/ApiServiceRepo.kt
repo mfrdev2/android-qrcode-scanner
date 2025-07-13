@@ -10,7 +10,7 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 
-class ApiRepo {
+class ApiServiceRepo {
    private val apiService: ApiService by lazy {
         RetrofitClient.createService<ApiService>()
     }
