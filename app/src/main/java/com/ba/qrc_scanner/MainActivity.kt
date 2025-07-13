@@ -2,6 +2,7 @@ package com.ba.qrc_scanner
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -35,15 +36,21 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onCreatedView(savedInstanceState: Bundle?) {
         binding?.scanQrBtn?.setOnClickListener {
-            requestMultiplePermissionsSafely(arrayOf(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestMultiplePermissionsSafely(
+                arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
             )
         }
 
-        binding?.nidCapture?.setOnClickListener {
-            Intent(this, NIDActivity::class.java)
-                .also { startActivity(it) }
+        binding?.reScanQrBtn?.setOnClickListener {
+            requestMultiplePermissionsSafely(
+                arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            )
         }
     }
 
@@ -64,10 +71,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         if (result.contents == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
         } else {
-            binding?.scannedValueTv?.text = buildString {
-                append("Scanned Value : ")
-                append(result.contents)
+            var content:String = result.contents;
+            if (content.isEmpty()) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
+                return@registerForActivityResult
             }
+            binding?.scanQrBtn?.visibility = View.GONE
+            binding?.scanResultLayout?.visibility = View.VISIBLE
+            binding?.scannedValueTv?.text = content
         }
 
     }
