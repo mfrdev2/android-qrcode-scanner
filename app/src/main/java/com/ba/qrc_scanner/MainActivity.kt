@@ -72,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             },
             onError = { error ->
                 hideLoading()
+                Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             }
         )
     }
