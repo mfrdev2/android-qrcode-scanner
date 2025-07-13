@@ -8,6 +8,7 @@ import com.ba.qrc_scanner.base.BaseViewModel
 import com.ba.qrc_scanner.data.remote.repo.ApiServiceRepo
 import com.ba.qrc_scanner.model.SuccessRes
 import com.ba.qrc_scanner.model.TokenState
+import com.ba.qrc_scanner.utils.isNetworkConnected
 import com.ba.qrc_scanner.utils.remote.Resource
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
     fun changeTokenState(review: TokenState) {
+        if (!isNetworkConnected(getApplication())) {
+            _tokenState.value = Resource.error("No internet connection");
+            return;
+        }
         _tokenState.value = Resource.loading()
         viewModelScope.launch {
             val result = apiRep.changeTokenState(review)
