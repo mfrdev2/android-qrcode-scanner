@@ -33,7 +33,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val isEnableApproveBtn: LiveData<Boolean> = _isEnableApproveBtn
 
 
-    fun initScanResult(result: String) {
+    fun initScanResult(result: String?) {
         _scanResult.value = result
         driveApproveBtn()
     }

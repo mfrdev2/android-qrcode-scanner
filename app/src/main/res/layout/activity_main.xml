@@ -21,10 +21,11 @@
         <!-- Initial Scan Button - Centered on screen -->
         <Button
             android:id="@+id/scanQrBtn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
             android:layout_centerInParent="true"
-            android:layout_margin="18dp"
+            android:layout_margin="@dimen/_52sdp"
+            android:textSize="@dimen/_22ssp"
             android:text="Scan QR" />
 
         <TextView
@@ -53,12 +54,12 @@
                     android:id="@+id/scannedValueTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="18dp"
+                    android:layout_margin="@dimen/_18sdp"
                     android:background="@drawable/border_background"
                     android:gravity="center"
                     android:hint="QR Code Result will appear here"
-                    android:minHeight="200dp"
-                    android:padding="16dp"
+                    android:minHeight="@dimen/_200sdp"
+                    android:padding="@dimen/_16sdp"
                     android:text="@{viewModel.scanResult}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16ssp" />
@@ -77,22 +78,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/reScanQrBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_18sdp"
+                            android:text="Rescan QR" />
+
+                        <Button
+                            android:id="@+id/approvedBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_18sdp"
+                            android:enabled="@{viewModel.isEnableApproveBtn}"
+                            android:text="Approved" />
+                    </LinearLayout>
 
                     <Button
-                        android:id="@+id/reScanQrBtn"
+                        android:id="@+id/homeBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="18dp"
-                        android:text="Rescan QR" />
-
-                    <Button
-                        android:id="@+id/approvedBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="18dp"
-                        android:enabled="@{viewModel.isEnableApproveBtn}"
-                        android:text="Approved" />
+                        android:layout_margin="@dimen/_18sdp"
+                        android:text="Home" />
 
                 </LinearLayout>
 

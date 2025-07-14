@@ -60,6 +60,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             viewModel?.changeTokenState()
         }
 
+        binding?.homeBtn?.setOnClickListener {
+            initHomeView()
+        }
+
         observeData()
         initHomeView()
     }
@@ -68,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         binding?.scanResultLayout?.visibility = View.GONE
         binding?.scanQrBtn?.visibility = View.VISIBLE
         binding?.versionTv?.visibility = View.VISIBLE
+        viewModel?.initScanResult(null)
     }
 
     private fun initScanDetailsView() {
