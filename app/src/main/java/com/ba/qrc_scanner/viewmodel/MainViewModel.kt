@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application) : BaseViewModel(application) {
     val apiRep: ApiServiceRepo by lazy { ApiServiceRepo() }
 
+
     private val _tokenState = MutableLiveData<Resource<SuccessRes>>()
     val tokenStateResult: LiveData<Resource<SuccessRes>> = _tokenState
 

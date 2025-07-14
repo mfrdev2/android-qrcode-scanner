@@ -16,7 +16,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(
             return isNetworkConnected(getApplication())
         }
 
-    protected open val versionName: String?
+     open val versionName: String?
         get() {
             return getVersionName(getApplication())
         }

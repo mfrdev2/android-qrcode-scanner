@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.ba.qrc_scanner.viewmodel.MainViewModel" />
 
     </data>
 
@@ -21,6 +24,14 @@
             android:layout_centerInParent="true"
             android:layout_margin="18dp"
             android:text="Scan QR" />
+        <TextView
+            android:id="@+id/versionTv"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            android:layout_alignParentBottom="true"
+            android:text="@{`Version:`+viewModel.versionName}"
+            android:layout_height="wrap_content"/>
 
         <!-- Scan Result Layout - Hidden initially -->
         <ScrollView

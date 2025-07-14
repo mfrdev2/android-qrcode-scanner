@@ -35,6 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun onCreatedView(savedInstanceState: Bundle?) {
+        binding?.viewModel = viewModel;
         binding?.scanQrBtn?.setOnClickListener {
             requestMultiplePermissionsSafely(
                 arrayOf(
