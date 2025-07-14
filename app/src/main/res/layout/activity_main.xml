@@ -15,18 +15,18 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/lavender_white"
         tools:context=".MainActivity">
 
         <!-- Initial Scan Button - Centered on screen -->
         <Button
             android:id="@+id/scanQrBtn"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_centerInParent="true"
-            android:layout_margin="@dimen/_52sdp"
-            android:textSize="@dimen/_22ssp"
-            android:text="Scan QR" />
+            android:textSize="@dimen/_24ssp"
+            tools:visibility="gone"
+            android:text="@string/scan_qr" />
 
         <TextView
             android:id="@+id/versionTv"
@@ -35,6 +35,7 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
             android:text="@{`Version:`+viewModel.versionName}"
+            tools:visibility="gone"
             android:textSize="12sp" />
 
         <!-- Scan Result Layout - Hidden initially -->
@@ -42,6 +43,7 @@
             android:id="@+id/scanResultLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:visibility="visible"
             android:visibility="gone">
 
             <LinearLayout
@@ -57,7 +59,7 @@
                     android:layout_margin="@dimen/_18sdp"
                     android:background="@drawable/border_background"
                     android:gravity="center"
-                    android:hint="QR Code Result will appear here"
+                    android:hint="@string/qr_code_result_will_appear_here"
                     android:minHeight="@dimen/_200sdp"
                     android:padding="@dimen/_16sdp"
                     android:text="@{viewModel.scanResult}"
@@ -67,6 +69,7 @@
                 <TextView
                     android:id="@+id/tv_error"
                     style="@style/ErrorTextView"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.errorMsg}"
@@ -81,29 +84,33 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:weightSum="1"
                         android:layout_height="wrap_content">
                         <Button
                             android:id="@+id/reScanQrBtn"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_18sdp"
-                            android:text="Rescan QR" />
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/rescan" />
 
                         <Button
                             android:id="@+id/approvedBtn"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_18sdp"
+                            android:layout_margin="@dimen/_10sdp"
                             android:enabled="@{viewModel.isEnableApproveBtn}"
-                            android:text="Approved" />
+                            android:text="@string/approved" />
                     </LinearLayout>
 
                     <Button
                         android:id="@+id/homeBtn"
                         android:layout_width="wrap_content"
+                        android:minWidth="@dimen/_150sdp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_18sdp"
-                        android:text="Home" />
+                        android:text="@string/home" />
 
                 </LinearLayout>
 

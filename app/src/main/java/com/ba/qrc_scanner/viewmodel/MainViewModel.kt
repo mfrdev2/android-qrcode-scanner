@@ -42,31 +42,32 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         val parseScanResult = parseScanResult()
         if (parseScanResult == null) {
             _isEnableApproveBtn.value = false
-            _errorMessage.value = "Invalid scan result"
+            _errorMessage.value = "Formatted data is not valid."
             return
         }
+        _errorMessage.value = null
         _isEnableApproveBtn.value = true
     }
 
     fun parseScanResult(): ScanResult? {
         val value = scanResult.value ?: return null
         // Example scanned value:
-        // Visitor Code: S005
-        // Transaction ID: 183
-        // Date: 2025-07-07
-        // Time: 5:43 PM
+        //Token: 025432
+        //Transaction ID: 198
+       // Date: 2024-07-14
+        //Time: 10:40:05 AM
 
         val lines = value.lines().map { it.trim() }
-        val visitorCodeLine = lines.find { it.startsWith("Visitor Code:") }
+        val tokenLine = lines.find { it.startsWith("Token:") }
         val transactionIdLine = lines.find { it.startsWith("Transaction ID:") }
         val dateLine = lines.find { it.startsWith("Date:") }
 
-        if (visitorCodeLine == null || transactionIdLine == null || dateLine == null) {
+        if (transactionIdLine == null || dateLine == null) {
             Log.e("MainViewModel", "Invalid scan result")
             return null // missing required data
         }
 
-        val visitorCode = visitorCodeLine.removePrefix("Visitor Code:").trim()
+        val tokenNumber = tokenLine?.removePrefix("Token:")?.trim()
         val transactionId = transactionIdLine.removePrefix("Transaction ID:").trim()
         val dateStr = dateLine.removePrefix("Date:").trim()
 
@@ -76,12 +77,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
             Log.e("MainViewModel", "Invalid date format: $dateStr")
             return null // parsing failed
         }
-        if (!date.isEqual(LocalDate.now())) {
+        val now = LocalDate.now()
+        if (!date.isEqual(now)) {
             Log.e("MainViewModel", "Date is not today")
             return null;
         }
         return ScanResult(
-            visitorCode = visitorCode,
+            visitorCode = tokenNumber,
             transactionId = transactionId,
             date = date
         )
@@ -91,7 +93,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     fun changeTokenState() {
         val parseScanResult = parseScanResult()
         if (parseScanResult == null) {
-            _tokenState.value = Resource.error("Invalid scan result");
+            _tokenState.value = Resource.error("Formatted data is not valid.");
             return;
         }
         val tokenState = TokenState(parseScanResult.transactionId, "0")

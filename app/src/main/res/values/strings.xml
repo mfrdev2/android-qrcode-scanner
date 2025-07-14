@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MGH-Scanner</string>
+    <string name="home">Home</string>
+    <string name="rescan">Rescan</string>
+    <string name="approved">Approved</string>
+    <string name="qr_code_result_will_appear_here">QR Code Result will appear here</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="result_icon">Result icon</string>
+    <string name="success">Success!</string>
+    <string name="your_action_was_completed_successfully">Your action was completed successfully.</string>
+    <string name="ok">OK</string>
 </resources>

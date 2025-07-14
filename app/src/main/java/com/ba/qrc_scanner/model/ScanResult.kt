@@ -4,7 +4,7 @@ import org.threeten.bp.LocalDate
 
 
 data class ScanResult(
-    val visitorCode: String,
+    val visitorCode: String?,
     val transactionId: String,
     val date: LocalDate
 )
