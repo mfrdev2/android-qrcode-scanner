@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.ba.qrc_scanner.R
+import androidx.core.graphics.drawable.toDrawable
 
 class ResultDialog(private val context: Context) {
     private var dialog: Dialog? = null
@@ -59,8 +60,8 @@ class ResultDialog(private val context: Context) {
 
         dialog = Dialog(context).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setCancelable(true)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            setCancelable(false)
 
             val view = createDialogView(type, title, message, buttonText, onDismiss)
             setContentView(view)
