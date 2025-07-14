@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -78,6 +79,11 @@ dependencies {
     implementation(libs.glide.okhttp3.integration)
 
     implementation(libs.qr.scanner)
+
+    implementation (libs.jakewharton.threetenabp)
+    implementation (libs.com.intuit.sdp.sdp.android)
+    implementation (libs.ssp.android)
+
 
 
     // CameraX dependencies

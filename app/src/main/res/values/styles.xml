@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="ErrorTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/_16sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_16sdp</item>
+        <item name="android:textColor">@color/error_color</item>
+        <item name="android:padding">@dimen/_8sdp</item>
+        <item name="android:background">@drawable/error_textview_customized_corner</item>
+    </style>
+
+
+
+
+</resources>

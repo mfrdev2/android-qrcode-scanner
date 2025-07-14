@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ba.qrc_scanner.base.BaseActivity
 import com.ba.qrc_scanner.databinding.ActivityMainBinding
-import com.ba.qrc_scanner.model.TokenState
+import com.ba.qrc_scanner.utils.dialog.ResultDialog
 import com.ba.qrc_scanner.utils.remote.observeResource
 import com.ba.qrc_scanner.viewmodel.MainViewModel
 import com.journeyapps.barcodescanner.ScanContract
@@ -36,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onCreatedView(savedInstanceState: Bundle?) {
         binding?.viewModel = viewModel;
+        binding?.lifecycleOwner = this
         binding?.scanQrBtn?.setOnClickListener {
             requestMultiplePermissionsSafely(
                 arrayOf(
@@ -55,28 +56,61 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
 
         binding?.approvedBtn?.setOnClickListener {
-            viewModel?.changeTokenState(TokenState("158","0"))
+            binding?.approvedBtn?.isEnabled = false
+            viewModel?.changeTokenState()
         }
 
         observeData()
+        initHomeView()
+    }
+
+    private fun initHomeView() {
+        binding?.scanResultLayout?.visibility = View.GONE
+        binding?.scanQrBtn?.visibility = View.VISIBLE
+        binding?.versionTv?.visibility = View.VISIBLE
+    }
+
+    private fun initScanDetailsView() {
+        binding?.scanQrBtn?.visibility = View.GONE
+        binding?.versionTv?.visibility = View.GONE
+        binding?.scanResultLayout?.visibility = View.VISIBLE
     }
 
     private fun observeData() {
+        val resultDialog = ResultDialog(this)
         viewModel?.tokenStateResult?.observeResource(
             owner = this,
             onLoading = {
                 showLoading()
             },
             onSuccess = { tokenState ->
+                binding?.approvedBtn?.isEnabled = true
                 hideLoading()
+                resultDialog.showSuccess(
+                    title = "Token Approved!",
+                    message = "Your token has been successfully processed and approved.",
+                    buttonText = "Continue"
+                ) {
+                    initHomeView();
+                }
 
             },
             onError = { error ->
+                binding?.approvedBtn?.isEnabled = true
                 hideLoading()
-                Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+                resultDialog.showError(
+                    title = "Approval Failed",
+                    message = error ?: "An unexpected error occurred. Please try again.",
+                    buttonText = "Retry"
+                ) {
+                    // Optional: Add retry logic or other actions
+                    // retryTokenApproval()
+                }
             }
         )
     }
+
+
 
     override fun onPermissionResult(permissions: Map<String, Boolean>) {
         super.onPermissionResult(permissions)
@@ -100,9 +134,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
                 return@registerForActivityResult
             }
-            binding?.scanQrBtn?.visibility = View.GONE
-            binding?.scanResultLayout?.visibility = View.VISIBLE
-            binding?.scannedValueTv?.text = content
+            initScanDetailsView()
+            viewModel?.initScanResult(content)
         }
 
     }

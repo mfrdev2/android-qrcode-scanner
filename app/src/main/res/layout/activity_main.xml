@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.ba.qrc_scanner.viewmodel.MainViewModel" />
@@ -19,19 +21,20 @@
         <!-- Initial Scan Button - Centered on screen -->
         <Button
             android:id="@+id/scanQrBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:layout_margin="18dp"
             android:text="Scan QR" />
+
         <TextView
             android:id="@+id/versionTv"
             android:layout_width="match_parent"
-            android:gravity="center_horizontal"
-            android:textSize="12sp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
             android:text="@{`Version:`+viewModel.versionName}"
-            android:layout_height="wrap_content"/>
+            android:textSize="12sp" />
 
         <!-- Scan Result Layout - Hidden initially -->
         <ScrollView
@@ -50,14 +53,23 @@
                     android:id="@+id/scannedValueTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="200dp"
                     android:layout_margin="18dp"
-                    android:gravity="center"
                     android:background="@drawable/border_background"
-                    android:padding="16dp"
+                    android:gravity="center"
                     android:hint="QR Code Result will appear here"
+                    android:minHeight="200dp"
+                    android:padding="16dp"
+                    android:text="@{viewModel.scanResult}"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/_16ssp" />
+
+                <TextView
+                    android:id="@+id/tv_error"
+                    style="@style/ErrorTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.errorMsg}"
+                    app:visibleIfNotEmpty="@{viewModel.errorMsg}" />
 
                 <!-- Button Panel with Rescan and Approve buttons -->
                 <LinearLayout
@@ -79,6 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="18dp"
+                        android:enabled="@{viewModel.isEnableApproveBtn}"
                         android:text="Approved" />
 
                 </LinearLayout>
@@ -86,32 +99,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-        <!-- Progress Layout - Hidden initially -->
-        <LinearLayout
-            android:id="@+id/progressLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:id="@+id/progressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Processing approval..."
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 
