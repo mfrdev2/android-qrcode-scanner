@@ -1,6 +1,7 @@
 package com.ba.qrc_scanner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -116,7 +117,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
 
-
     override fun onPermissionResult(permissions: Map<String, Boolean>) {
         super.onPermissionResult(permissions)
         val isAllGranted = permissions.values.all { it }
@@ -133,15 +133,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         if (result.contents == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
-        } else {
-            var content: String = result.contents;
-            if (content.isEmpty()) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
-                return@registerForActivityResult
-            }
-            initScanDetailsView()
-            viewModel?.initScanResult(content)
+            return@registerForActivityResult
         }
+        var content: String = result.contents;
+        if (content.isEmpty()) {
+            Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
+            return@registerForActivityResult
+        }
+        Log.i("MainActivity", "Scanned content: $content")
+        initScanDetailsView()
+        viewModel?.initScanResult(content)
+
 
     }
 }

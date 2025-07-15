@@ -1,10 +1,11 @@
 package com.ba.qrc_scanner.model
 
-import org.threeten.bp.LocalDate
-
-
 data class ScanResult(
-    val visitorCode: String?,
-    val transactionId: String,
-    val date: LocalDate
+    val transId: String?,
+    val name: String?,
+    val serviceName: String?,
+    val token: String?,
+    val imageUrl: String?,
+    val date: String?,
+    val time: String?
 )

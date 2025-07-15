@@ -62,7 +62,7 @@
                     android:hint="@string/qr_code_result_will_appear_here"
                     android:minHeight="@dimen/_200sdp"
                     android:padding="@dimen/_16sdp"
-                    android:text="@{viewModel.scanResult}"
+                    android:text="@{viewModel.scanResultBean.toString()}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16ssp" />
 
