@@ -78,6 +78,8 @@ dependencies {
     implementation(libs.glide.ksp)
     implementation(libs.glide.okhttp3.integration)
 
+    implementation (libs.de.circleimageview)
+
     implementation(libs.qr.scanner)
 
     implementation (libs.jakewharton.threetenabp)

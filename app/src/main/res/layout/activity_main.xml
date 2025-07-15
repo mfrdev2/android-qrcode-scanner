@@ -24,6 +24,8 @@
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_centerInParent="true"
+            android:backgroundTint="@color/success_color"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24ssp"
             tools:visibility="gone"
             android:text="@string/scan_qr" />
@@ -43,78 +45,283 @@
             android:id="@+id/scanResultLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/_8sdp"
             tools:visibility="visible"
             android:visibility="gone">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- TextView to show scan result -->
-                <TextView
-                    android:id="@+id/scannedValueTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_18sdp"
-                    android:background="@drawable/border_background"
-                    android:gravity="center"
-                    android:hint="@string/qr_code_result_will_appear_here"
-                    android:minHeight="@dimen/_200sdp"
-                    android:padding="@dimen/_16sdp"
-                    android:text="@{viewModel.scanResultBean.toString()}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp" />
-
-                <TextView
-                    android:id="@+id/tv_error"
-                    style="@style/ErrorTextView"
-                    android:visibility="visible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.errorMsg}"
-                    app:visibleIfNotEmpty="@{viewModel.errorMsg}" />
-
-                <!-- Button Panel with Rescan and Approve buttons -->
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_2sdp"
+                app:cardUseCompatPadding="true"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content">
                 <LinearLayout
-                    android:id="@+id/buttonPanel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_error"
+                        style="@style/ErrorTextView"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.errorMsg}"
+                        app:visibleIfNotEmpty="@{viewModel.errorMsg}" />
+
+                    <!-- TextView to show scan result -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:weightSum="1"
+                        android:orientation="vertical"
                         android:layout_height="wrap_content">
-                        <Button
-                            android:id="@+id/reScanQrBtn"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.5"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:text="@string/rescan" />
 
-                        <Button
-                            android:id="@+id/approvedBtn"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.5"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:enabled="@{viewModel.isEnableApproveBtn}"
-                            android:text="@string/approved" />
+
+                        <!-- Circular Profile Image -->
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profileImage"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="@dimen/_150sdp"
+                            android:src="@drawable/default_profile"
+                            android:scaleType="centerCrop"
+                            app:civ_border_width="@dimen/_2sdp"
+                            app:civ_border_color="@color/gray"
+                            android:layout_gravity="center_horizontal|top"
+                            android:layout_marginBottom="@dimen/_10sdp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/gray"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_height="@dimen/_1sdp"/>
+                        <!--Name-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:text="Name"
+                                android:layout_gravity="start|top"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_marginEnd="@dimen/_5sdp"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.04"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_gravity="start|center_vertical"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.56"
+                                android:text="@{viewModel.scanResultBean.name}"
+                                tools:text="MD.FAZLE RABBI"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|center_vertical"/>
+
+                        </LinearLayout>
+
+                        <!--Token No-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:text="Token No"
+                                android:layout_gravity="start|top"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_marginEnd="@dimen/_5sdp"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.04"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_gravity="start|center_vertical"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.56"
+                                android:text="@{viewModel.scanResultBean.token}"
+                                tools:text="R1524"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|top"/>
+
+                        </LinearLayout>
+
+                        <!--Service Name-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:text="Service Name"
+                                android:layout_gravity="start|top"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_marginEnd="@dimen/_5sdp"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.04"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_gravity="start|top"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.56"
+                                android:text="@{viewModel.scanResultBean.serviceName}"
+                                tools:text="Business Meeting sfsfsf"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|top"/>
+
+                        </LinearLayout>
+
+
+                        <!--Date-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:text="Date"
+                                android:layout_gravity="start|top"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_marginEnd="@dimen/_5sdp"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.04"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_gravity="start|top"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.56"
+                                android:text="@{viewModel.scanResultBean.date}"
+                                tools:text="2025-01-15"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|top"/>
+
+                        </LinearLayout>
+
+
+                        <!--Time-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:text="Time"
+                                android:layout_gravity="start|top"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_marginEnd="@dimen/_5sdp"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.04"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_gravity="start|top"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.56"
+                                android:text="@{viewModel.scanResultBean.time}"
+                                tools:text="10:25AM"
+                                android:textSize="@dimen/_16ssp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|top"/>
+
+                        </LinearLayout>
+
+
+
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/homeBtn"
-                        android:layout_width="wrap_content"
-                        android:minWidth="@dimen/_150sdp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:background="@color/gray"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:layout_height="@dimen/_1sdp"/>
+                    <!-- Button Panel with Rescan and Approve buttons -->
+                    <LinearLayout
+                        android:id="@+id/buttonPanel"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_18sdp"
-                        android:text="@string/home" />
+
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="1"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/reScanQrBtn"
+                                android:layout_width="0dp"
+                                android:layout_weight="0.5"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:backgroundTint="@color/primary_color"
+                                android:text="@string/rescan" />
+
+                            <Button
+                                android:id="@+id/approvedBtn"
+                                android:layout_width="0dp"
+                                android:layout_weight="0.5"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:backgroundTint="@color/success_color"
+                                android:textColor="@color/white"
+                                android:enabled="@{viewModel.isEnableApproveBtn}"
+                                android:text="@string/approved" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/homeBtn"
+                            android:layout_width="wrap_content"
+                            android:minWidth="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/home" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
+
 
         </ScrollView>
 

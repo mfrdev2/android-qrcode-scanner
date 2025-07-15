@@ -46,7 +46,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return try {
             val parseScanResult = parseScanResult()
             _errorMessage.value = null
-            _isEnableApproveBtn.value = true
+            _isEnableApproveBtn.value = try {
+                checkDateIsValid(parseScanResult?.date) && checkTransIdIsValid(parseScanResult?.transId)
+            } catch (e: Exception) {
+                _errorMessage.value = e.message
+                return parseScanResult
+            }
             parseScanResult
         } catch (e: Exception) {
             _isEnableApproveBtn.value = false
@@ -67,41 +72,47 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         }
         val base64Str = split[1]
         return try {
-            val jsonStringToDataBean = jsonStringToDataBean<ScanResult?>(decodeBase64(base64Str))
-            val date = jsonStringToDataBean?.date
-            if (date == null) {
-                throw DecodeException("Invalid date!!")
-            }
-            try {
-                val date = LocalDate.parse(date)
-                val now = LocalDate.now()
-                if (date.isEqual(now)) {
-                    return jsonStringToDataBean
-                }
-                if (date.isAfter(now)) {
-                    throw DecodeException("Date is in the future!!")
-                }
-                if (date.isBefore(now)) {
-                    throw DecodeException("Token has been expired!!")
-                }
-            } catch (e: Exception) {
-                throw DecodeException("Invalid date format!!")
-            }
-            return jsonStringToDataBean
+            jsonStringToDataBean<ScanResult?>(decodeBase64(base64Str))
         } catch (e: Exception) {
             throw DecodeException("Formatted data is not valid.")
         }
     }
 
+    fun checkDateIsValid(date: String?): Boolean {
+        return try {
+            val date = LocalDate.parse(date)
+            val now = LocalDate.now()
+            if (date.isEqual(now)) {
+                return true
+            }
+            if (date.isAfter(now)) {
+                throw DecodeException("Date is in the future!!")
+            }
+            if (date.isBefore(now)) {
+                throw DecodeException("Token has been expired!!")
+            }
+            return false
+        } catch (e: Exception) {
+            throw DecodeException("Invalid date format!!")
+        }
+    }
+
+    fun checkTransIdIsValid(transId: String?): Boolean {
+        if (transId == null) {
+            throw DecodeException("Invalid transId!!")
+        }
+        return true
+    }
+
 
     fun changeTokenState() {
-        val parseScanResult = parseScanResult()
+        val parseScanResult = getScanResult()
         if (parseScanResult == null) {
             _tokenState.value = Resource.error("Formatted data is not valid.");
             return;
         }
         if (parseScanResult.transId == null) {
-            _tokenState.value = Resource.error("Formatted data is not valid.");
+            _tokenState.value = Resource.error("TransId is required");
             return;
         }
         val tokenState = TokenState(parseScanResult.transId, "0")

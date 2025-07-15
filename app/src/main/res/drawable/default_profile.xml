@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background Circle with Gradient Effect -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M50,0 A50,50 0,0 1,100 50 A50,50 0,0 1,50 100 A50,50 0,0 1,0 50 A50,50 0,0 1,50 0 Z" />
+
+    <!-- Inner Circle -->
+    <path
+        android:fillColor="#E8E8E8"
+        android:pathData="M50,10 A40,40 0,0 1,90 50 A40,40 0,0 1,50 90 A40,40 0,0 1,10 50 A40,40 0,0 1,50 10 Z" />
+
+    <!-- Head -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M50,20 A12,12 0,0 1,62 32 A12,12 0,0 1,50 44 A12,12 0,0 1,38 32 A12,12 0,0 1,50 20 Z" />
+
+    <!-- Body -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M50,45 C38,45 30,53 30,65 L30,80 L70,80 L70,65 C70,53 62,45 50,45 Z" />
+
+</vector>
