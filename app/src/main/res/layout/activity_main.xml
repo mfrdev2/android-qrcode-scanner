@@ -305,7 +305,7 @@
                                 android:layout_weight="0.5"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_10sdp"
-                                android:backgroundTint="@color/success_color"
+                                android:backgroundTint="@drawable/button_background_color"
                                 android:textColor="@color/white"
                                 android:enabled="@{viewModel.isEnableApproveBtn}"
                                 android:text="@string/approved" />

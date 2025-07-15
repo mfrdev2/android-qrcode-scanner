@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/color/button_color.xml -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Disabled state -->
-    <item android:color="?colorSecondary" android:state_enabled="false"/>
-    <!-- Enabled state -->
-    <item android:color="?colorPrimary"/>
+    <item android:color="#AAAAAA" android:state_enabled="false" /> <!-- Disabled -->
+    <item android:color="@color/success_color" android:state_enabled="true" />  <!-- Enabled -->
 </selector>
+
