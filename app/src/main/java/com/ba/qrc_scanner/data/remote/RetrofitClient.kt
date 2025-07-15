@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.jvm.java
 
 object RetrofitClient {
-    private const val BASE_URL = "http://192.168.30.78:9002/"
+    const val BASE_URL = "http://192.168.30.78:9002/"
 
     private val logging = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -28,7 +28,6 @@ object RetrofitClient {
     internal inline fun <reified T> createService(): T {
         return instance.create(T::class.java)
     }
-
 
 
 }

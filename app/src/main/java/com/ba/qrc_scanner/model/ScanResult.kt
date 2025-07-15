@@ -5,7 +5,7 @@ data class ScanResult(
     val name: String?,
     val serviceName: String?,
     val token: String?,
-    val imageUrl: String?,
+    val attachmentId: String?,
     val date: String?,
     val time: String?
 )

@@ -82,12 +82,15 @@
                             android:id="@+id/profileImage"
                             android:layout_width="@dimen/_150sdp"
                             android:layout_height="@dimen/_150sdp"
-                            android:src="@drawable/default_profile"
+                            tools:src="@drawable/default_profile"
                             android:scaleType="centerCrop"
                             app:civ_border_width="@dimen/_2sdp"
+                            app:imageUrl="@{viewModel.scanResultBean.attachmentId}"
                             app:civ_border_color="@color/gray"
                             android:layout_gravity="center_horizontal|top"
                             android:layout_marginBottom="@dimen/_10sdp" />
+
+
                         <View
                             android:layout_width="match_parent"
                             android:background="@color/gray"

@@ -65,7 +65,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         if (scanResultData.value == null) {
             throw DecodeException("Invalid data!!")
         }
-        //{"name":"Sahad","serviceName":"Business Meeting","token":"025432","transId":"198","imageUrl":"http://image-url","date":"2025-07-15","time":"10:40:05 AM"}
+        //{"name":"Sahad","serviceName":"Business Meeting","token":"025432","transId":"198","attachmentId":"faslfjalfj","date":"2025-07-15","time":"10:40:05 AM"}
         val split = value?.split(",")
         if (split?.size != 2) {
             throw DecodeException("Invalid data!!")
